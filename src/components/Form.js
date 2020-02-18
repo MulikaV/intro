@@ -1,19 +1,19 @@
 import React from "react";
-import {Field, reduxForm} from "redux-form";
-import {maxLength50, required} from "../helpers/validators";
+import {Field, reset, reduxForm} from "redux-form";
+import {maxLength100, required} from "../helpers/validators";
 import {Textarea} from "./FormControls";
 
 let Form = ({handleSubmit}) => {
     return (
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit}>
             <div className="form-group">
                 <Field
                     component={Textarea}
                     element={"textarea"}
-                    validate={[required,maxLength50]}
+                    validate={[required, maxLength100]}
                     name="message"
                     placeholder="Start messaging here"
-                    />
+                />
             </div>
             <div className="text-right">
                 <button type="submit" className="btn btn-primary "> Send</button>
@@ -22,4 +22,10 @@ let Form = ({handleSubmit}) => {
     )
 };
 
-export default Form = reduxForm({form: 'form'})(Form);
+export default Form = reduxForm({
+    form: 'form',
+    onSubmitSuccess: (result, dispatch) => {
+        dispatch(reset('form'));
+    }
+})(Form);
+

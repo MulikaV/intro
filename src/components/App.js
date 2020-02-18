@@ -1,7 +1,6 @@
 import React from 'react';
 import '../styles/App.css';
-import HomeContainer from "../containers/Home";
-import style from "../styles/App.css"
+import HomeContainer from "../pages/Home";
 
 const App = () => {
     return (

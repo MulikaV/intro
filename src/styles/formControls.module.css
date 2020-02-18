@@ -3,8 +3,7 @@
 }
 
 .invalidTooltip {
-    margin-top: 1rem;
-
+    margin-top: 1em;
     font-size: 20px;
     color: #700;
 }

@@ -14,6 +14,7 @@ const Home = ({posts, isReady, addPost, deletePost}) => {
         deletePost(e.target.id);
     };
 
+
     return (
         <div>
             <div>
@@ -24,7 +25,6 @@ const Home = ({posts, isReady, addPost, deletePost}) => {
                 : <div className={style.posts}>
                     {posts.map(post =>
                         <Post post={post}
-                              key={post.id}
                               delPost={delPost}/>
                     )}
                 </div>
