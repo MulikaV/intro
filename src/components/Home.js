@@ -1,17 +1,40 @@
 import React from "react";
 import Form from "./Form";
+import {Post} from "./Post";
+import style from "../styles/home.module.css"
 
 
-const Home = () => {
-    const send = (data) =>{
-        console.log(data);
+const Home = ({posts, isReady, addPost, deletePost}) => {
+
+    const addNewPost = (data) => {
+        addPost(data.message);
     };
 
-  return (
-      <div>
-        <Form onSubmit={send} />
-      </div>
-  )
+    const delPost = (e) => {
+        deletePost(e.target.id);
+    };
+
+    return (
+        <div>
+            <div>
+                <Form onSubmit={addNewPost}/>
+            </div>
+            {!isReady
+                ? <div>Loading</div>
+                : <div className={style.posts}>
+                    {posts.map(post =>
+                        <Post post={post}
+                              key={post.id}
+                              delPost={delPost}/>
+                    )}
+                </div>
+
+            }
+
+
+        </div>
+
+    )
 
 };
 

@@ -1,0 +1,20 @@
+
+.post {
+    background-color: #fff;
+    padding: 5px;
+    margin-top: 1em;
+}
+
+.cont{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.cont .text{
+    margin-left: 1em;
+}
+.cont .delete {
+    margin-right: 1em;
+    text-decoration: none;
+}

@@ -1,18 +1,24 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
+import style from "../styles/form.css"
+import {maxLength50, required} from "../helpers/validators";
+import {Textarea} from "./FormControls";
 
 let Form = ({handleSubmit}) => {
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={style.form}>
             <div className="form-group">
                 <Field
-                    component="textarea"
-                    type="text"
+                    component={Textarea}
+                    element={"textarea"}
+                    validate={[required,maxLength50]}
                     name="message"
                     placeholder="Start messaging here"
-                    className="form-control"/>
+                    />
             </div>
-            <button type="submit" className="btn btn-primary"> Send</button>
+            <div className={style.button}>
+                <button type="submit" className="btn btn-primary "> Send</button>
+            </div>
         </form>
     )
 };

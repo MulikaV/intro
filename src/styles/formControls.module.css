@@ -1,0 +1,23 @@
+.invalid {
+    box-shadow: 0 4px 8px 0 #700;
+}
+
+.invalidTooltip {
+    margin-top: 1rem;
+
+    font-size: 20px;
+    color: #700;
+}
+
+.invalidTooltip::before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\026A0";
+    margin-right: 0.5rem;
+}
+
+

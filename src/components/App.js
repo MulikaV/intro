@@ -1,11 +1,12 @@
 import React from 'react';
 import '../styles/App.css';
-import Home from "./Home";
+import HomeContainer from "../containers/Home";
+import style from "../styles/App.css"
 
 const App = () => {
     return (
-        <div className="container mt-5">
-            <Home/>
+        <div className="container bg-light pt-5">
+            <HomeContainer/>
         </div>
     );
 }
