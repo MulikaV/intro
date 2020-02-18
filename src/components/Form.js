@@ -1,12 +1,11 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
-import style from "../styles/form.css"
 import {maxLength50, required} from "../helpers/validators";
 import {Textarea} from "./FormControls";
 
 let Form = ({handleSubmit}) => {
     return (
-        <form onSubmit={handleSubmit} className={style.form}>
+        <form onSubmit={handleSubmit} >
             <div className="form-group">
                 <Field
                     component={Textarea}
@@ -16,7 +15,7 @@ let Form = ({handleSubmit}) => {
                     placeholder="Start messaging here"
                     />
             </div>
-            <div className={style.button}>
+            <div className="text-right">
                 <button type="submit" className="btn btn-primary "> Send</button>
             </div>
         </form>
