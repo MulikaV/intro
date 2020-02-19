@@ -2,10 +2,16 @@ import * as axios from "axios";
 import {reducer as formReducer} from 'redux-form'
 import createSagaMiddleware from 'redux-saga';
 import posts from "./reducers/posts";
-import {createRequestInstance, watchRequests} from "redux-saga-requests";
+import {createRequestInstance, success, watchRequests} from "redux-saga-requests";
 import {createDriver} from "redux-saga-requests-axios";
-import {applyMiddleware, combineReducers, compose, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import {takeLatest,all,put} from "redux-saga/effects";
+import {getAllPosts} from "./actions/posts";
 
+
+function* fetchAllPosts() {
+    yield put(getAllPosts());
+}
 
 function* rootSaga() {
     yield createRequestInstance({
@@ -15,8 +21,12 @@ function* rootSaga() {
             }),
         )
     });
-    yield watchRequests();
-};
+    yield all([
+        watchRequests(),
+        takeLatest(success('ADD_POST'),fetchAllPosts),
+        takeLatest(success('DELETE_POST'),fetchAllPosts),
+    ])
+}
 
 export const configureStore = () => {
     const sagaMiddleware = createSagaMiddleware();

@@ -1,8 +1,6 @@
 /*
 import {postApi} from "../../api/api";
 
-
-
 export const getAllPosts = () => async (dispatch) => {
     const data = await postApi.getPosts();
     if (data) {
@@ -27,8 +25,6 @@ export const deletePost = (id) => async (dispatch) => {
     }
 };*/
 
-
-
 import {ADD_POST, DELETE_POST, GET_POSTS} from "../constants";
 
 export const getAllPosts = () => ({
@@ -44,8 +40,6 @@ export const addPost = text => ({
         url:'/posts',
         data: {text},
         method: 'post'
-    },
-    meta: {
     }
 });
 
