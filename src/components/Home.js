@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 import {addPost, deletePost} from "../store/actions/posts";
 
 
-const Home = ({posts, isfetching}) => {
+const Home = ({posts, isFetching}) => {
 
     const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const Home = ({posts, isfetching}) => {
             <div>
                 <Form onSubmit={addNewPost}/>
             </div>
-            {isfetching
+            {isFetching
                 ? <div>Loading</div>
                 : <div className={style.posts}>
                     {posts.map(post =>

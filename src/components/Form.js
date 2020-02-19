@@ -16,7 +16,7 @@ let Form = ({handleSubmit}) => {
                 />
             </div>
             <div className="text-right">
-                <button type="submit" className="btn btn-primary "> Send</button>
+                <button type="submit"    className="btn btn-primary"> Send</button>
             </div>
         </form>
     )

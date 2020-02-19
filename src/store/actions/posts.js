@@ -1,36 +1,11 @@
-/*
-import {postApi} from "../../api/api";
-
-export const getAllPosts = () => async (dispatch) => {
-    const data = await postApi.getPosts();
-    if (data) {
-        dispatch({
-            type: GET_POSTS,
-            payload: data
-        });
-    }
-};
-
-export const addPost = (text) => async (dispatch) => {
-    const data = await postApi.addPost(text);
-    if (data) {
-        dispatch(getAllPosts());
-    }
-};
-
-export const deletePost = (id) => async (dispatch) => {
-    const data = await postApi.deletePost(id);
-    if (data) {
-        dispatch(getAllPosts());
-    }
-};*/
-
-import {ADD_POST, DELETE_POST, GET_POSTS} from "../constants";
+export const GET_POSTS = 'GET_POSTS';
+export const ADD_POST = 'ADD_POST';
+export const DELETE_POST = 'DELETE_POST';
 
 export const getAllPosts = () => ({
     type: GET_POSTS,
     request: {
-        url: '/posts'
+        url: '/posts?sortBy=id&order=desc'
     }
 });
 

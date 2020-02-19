@@ -1,9 +1,9 @@
 import { success } from 'redux-saga-requests';
-import {GET_POSTS} from '../constants';
+import {ADD_POST, DELETE_POST, GET_POSTS} from "../actions/posts";
 
 const initialState = {
     posts: [],
-    isfetching: false
+    isFetching: false
 };
 
 export default (state = initialState,  action)=> {
@@ -12,14 +12,27 @@ export default (state = initialState,  action)=> {
         case GET_POSTS:
             return {
                 ...state,
-                isfetching: true
+                isFetching: true
             };
         case success(GET_POSTS):
             return {
                 ...state,
                 posts: action.data,
-                isfetching: false
+                isFetching: false
             };
+
+        case success(ADD_POST):
+            return {
+                ...state,
+                posts: [action.data, ...state.posts]
+            };
+
+            case success(DELETE_POST):
+            return {
+                ...state,
+                posts: state.posts.filter( el => el.id !== action.data.id )
+            };
+
         default:
             return state
     }

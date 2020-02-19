@@ -7,7 +7,7 @@ import {getAllPosts} from "../store/actions/posts";
 const HomeContainer = () => {
     const dispatch = useDispatch();
     const posts = useSelector(state => state.posts.posts);
-    const isfetching = useSelector(state => state.posts.isfetching);
+    const isFetching = useSelector(state => state.posts.isFetching);
 
     useEffect(() => {
         dispatch(getAllPosts());
@@ -15,7 +15,7 @@ const HomeContainer = () => {
 
     return <Home
         posts={posts}
-        isfetching={isfetching}/>
+        isFetching={isFetching}/>
 
 };
 export default HomeContainer;
