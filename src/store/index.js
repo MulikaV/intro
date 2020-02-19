@@ -1,11 +1,32 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import thunkMiddleware from "redux-thunk";
-import { reducer as formReducer } from 'redux-form'
+import * as axios from "axios";
+import {reducer as formReducer} from 'redux-form'
+import createSagaMiddleware from 'redux-saga';
 import posts from "./reducers/posts";
+import {createRequestInstance, watchRequests} from "redux-saga-requests";
+import {createDriver} from "redux-saga-requests-axios";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 
-const store = createStore(combineReducers({
-    posts,
-    form: formReducer
-}),applyMiddleware(thunkMiddleware));
 
-export default store;
+function* rootSaga() {
+    yield createRequestInstance({
+        driver: createDriver(
+            axios.create({
+                baseURL: 'https://5e4aae066eafb7001488c7c7.mockapi.io'
+            }),
+        )
+    });
+    yield watchRequests();
+};
+
+export const configureStore = () => {
+    const sagaMiddleware = createSagaMiddleware();
+    const store = createStore(
+        combineReducers({
+            posts,
+            form: formReducer
+        }),
+        applyMiddleware(sagaMiddleware),
+    );
+    sagaMiddleware.run(rootSaga);
+    return store;
+};

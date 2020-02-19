@@ -1,6 +1,7 @@
+/*
 import {postApi} from "../../api/api";
 
-const GET_POSTS = 'GET_POSTS';
+
 
 export const getAllPosts = () => async (dispatch) => {
     const data = await postApi.getPosts();
@@ -24,4 +25,37 @@ export const deletePost = (id) => async (dispatch) => {
     if (data) {
         dispatch(getAllPosts());
     }
-};
+};*/
+
+
+
+import {ADD_POST, DELETE_POST, GET_POSTS} from "../constants";
+
+export const getAllPosts = () => ({
+    type: GET_POSTS,
+    request: {
+        url: '/posts'
+    }
+});
+
+export const addPost = text => ({
+    type:ADD_POST,
+    request:{
+        url:'/posts',
+        data: {text},
+        method: 'post'
+    },
+    meta: {
+    }
+});
+
+export const deletePost = id => ({
+    type:DELETE_POST,
+    request:{
+        url:`/posts/${id}`,
+        method: 'delete'
+    }
+});
+
+
+
