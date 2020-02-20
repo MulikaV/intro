@@ -6,7 +6,7 @@ export const Post = ({post,delPost,editPost}) => {
         <p><small>{post.createdAt.slice(0, 10)}</small></p>
       <div className={style.cont}>
         <p className={style.text}>{post.text}</p>
-        <a href="#" id={post.id} onClick={delPost} className={style.delete}>Delete</a>
+        <a href="/#" id={post.id} onClick={delPost} className={style.delete}>Delete</a>
       </div>
 
     </div>

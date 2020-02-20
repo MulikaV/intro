@@ -8,7 +8,7 @@ export const Textarea = ({input, meta, ...props}) => {
         <div>
             <div>
                 <textarea   {...input} {...props}
-                       className={"form-control" + " " + (hasError ? styles.invalid : "")}/>
+                       className={"form-control " + (hasError ? styles.invalid : "")}/>
             </div>
             {hasError &&
             <div className={styles.invalidTooltip}>{meta.error}</div>}

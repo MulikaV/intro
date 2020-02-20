@@ -28,6 +28,7 @@ const Home = ({posts, isFetching}) => {
                 : <div className={style.posts}>
                     {posts.map(post =>
                         <Post post={post}
+                              key={post.id}
                               delPost={delPost}/>
                     )}
                 </div>

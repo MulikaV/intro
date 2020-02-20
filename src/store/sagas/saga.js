@@ -1,6 +1,14 @@
-import {createRequestInstance, success, watchRequests} from "redux-saga-requests";
+import {createRequestInstance, watchRequests} from "redux-saga-requests";
 import {createDriver} from "redux-saga-requests-axios";
 import * as axios from "axios";
+/*import {getAllPosts} from "../actions/posts";
+import {all,put, takeLatest} from "redux-saga/effects";*/
+
+/*
+function* fetchAllPosts() {
+    yield put(getAllPosts());
+}
+*/
 
 export default function* rootSaga() {
     yield createRequestInstance({
@@ -10,5 +18,11 @@ export default function* rootSaga() {
             }),
         )
     });
+
     yield watchRequests();
+
+   /* yield all([
+        watchRequests(),
+        takeLatest([success('DELETE_POST'), success('ADD_POST')],fetchAllPosts)
+        ])*/
 }
