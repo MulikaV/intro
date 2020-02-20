@@ -1,6 +1,7 @@
 import {reducer as formReducer} from 'redux-form'
 import createSagaMiddleware from 'redux-saga';
-import posts from "./reducers/posts";
+import posts from "./posts/reducers";
+import { requestsPromiseMiddleware } from 'redux-saga-requests';
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import rootSaga from "./sagas/saga";
 
@@ -11,7 +12,7 @@ export const configureStore = () => {
             posts,
             form: formReducer
         }),
-        applyMiddleware(sagaMiddleware),
+        applyMiddleware(requestsPromiseMiddleware(),sagaMiddleware),
     );
     sagaMiddleware.run(rootSaga);
     return store;

@@ -3,7 +3,7 @@ import Form from "./Form";
 import {Post} from "./Post";
 import style from "../styles/home.module.css"
 import {useDispatch} from "react-redux";
-import {addPost, deletePost} from "../store/actions/posts";
+import {addPost, deletePost} from "../store/posts/actions";
 
 
 const Home = ({posts, isFetching}) => {
