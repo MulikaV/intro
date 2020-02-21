@@ -33,7 +33,11 @@ export const Post = ({post, delPost}) => {
 
 
     return <div className={style.post}>
-        <p><small>{post.created_at.slice(0, 10)}</small></p>
+        <div className={style.cont}>
+            <p><small>{post.updated_at}</small></p>
+            <p><small>{post.user.name}</small></p>
+        </div>
+
         {editMode
             ? <div className={style.cont}>
                 <div className="input-group">

@@ -5,24 +5,26 @@
     margin-top: 1em;
 }
 
+.info {
+    display: flex;
+}
 .cont{
     display: flex;
     justify-content: space-between;
+    padding: 0 1em 0 1em;
 
 }
 
 .cont .text{
-    margin-left: 1em;
+
 }
 .cont .delete {
-    margin-right: 1em;
+    margin-left: 1em;
     text-decoration: none;
 }
 .cont .delete:hover {
     cursor: pointer
 }
 .cont .input {
-    margin-left: 1em;
     margin-bottom: 1em;
-    margin-right: 1em;
 }
