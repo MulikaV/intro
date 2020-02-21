@@ -14,6 +14,11 @@ const Home = ({posts, isFetching}) => {
         dispatch(addPost(data.message));
     };
 
+    const editPost = (e) => {
+       // dispatch(showPost(e.target.id));
+        alert("show post");
+    };
+
     const delPost = (e) => {
         dispatch(deletePost(e.target.id));
     };
@@ -29,6 +34,7 @@ const Home = ({posts, isFetching}) => {
                     {posts.map(post =>
                         <Post post={post}
                               key={post.id}
+                              editPost = {editPost}
                               delPost={delPost}/>
                     )}
                 </div>

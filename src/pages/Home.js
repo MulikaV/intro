@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import Home from "../components/Home";
 import {useDispatch, useSelector} from "react-redux";
-import {getAllPosts} from "../store/posts/actions";
+import {getAllPosts, setIsSuccessFalse} from "../store/posts/actions";
 
 
 const HomeContainer = () => {
@@ -11,8 +11,10 @@ const HomeContainer = () => {
     const isFetching = useSelector(state => state.posts.isFetching);
 
     useEffect(() => {
-
-            dispatch(getAllPosts());
+            if (isSuccess){
+                dispatch(getAllPosts());
+                dispatch(setIsSuccessFalse());
+            }
 
 
     }, [dispatch,isSuccess]);
