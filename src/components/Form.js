@@ -1,6 +1,6 @@
 import React from "react";
 import {Field, reset, reduxForm} from "redux-form";
-import {maxLength100, required} from "../helpers/validators";
+import {maxLength500, required} from "../helpers/validators";
 import {Textarea} from "./FormControls";
 
 let Form = ({handleSubmit}) => {
@@ -10,7 +10,7 @@ let Form = ({handleSubmit}) => {
                 <Field
                     component={Textarea}
                     element={"textarea"}
-                    validate={[required, maxLength100]}
+                    validate={[ maxLength500]}
                     name="message"
                     placeholder="Start messaging here"
                 />

@@ -14,8 +14,8 @@ export const getAllPosts = () => ({
 });
 
 export const addPost = text =>
-    async dispatch => {
-        await dispatch({
+  async  dispatch => {
+       await dispatch({
             type: ADD_POST,
             request: {
                 url: `${baseUrl}/posts`,
@@ -24,7 +24,7 @@ export const addPost = text =>
             }
         });
 
-        dispatch(getAllPosts());
+         dispatch(getAllPosts());
     };
 
 export const deletePost = id =>

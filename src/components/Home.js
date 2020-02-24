@@ -4,9 +4,10 @@ import {Post} from "./Post";
 import style from "../styles/home.module.css"
 import {useDispatch} from "react-redux";
 import {addPost, deletePost} from "../store/posts/actions";
+import Error from "./Error";
 
 
-const Home = ({posts, isFetching}) => {
+const Home = ({posts, isFetching,error}) => {
 
     const dispatch = useDispatch();
 
@@ -23,7 +24,9 @@ const Home = ({posts, isFetching}) => {
             <div>
                 <Form onSubmit={addNewPost}/>
             </div>
-            {isFetching
+
+             <Error />
+            {isFetching && !error
                 ? <div>Loading</div>
                 : <div className={style.posts}>
                     {posts.map(post =>
