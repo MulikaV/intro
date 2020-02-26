@@ -1,5 +1,5 @@
 import {error, success} from 'redux-saga-requests';
-import {ADD_POST, DELETE_POST,  GET_POSTS, UPDATE_POST} from "../posts/actions";
+import {GET_POSTS, SET_ERROR} from "../posts/actions";
 
 const initialState = {
     posts: [],
@@ -7,7 +7,7 @@ const initialState = {
     error: null
 };
 
-export default (state = initialState, action) => {
+const postReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_POSTS:
@@ -15,6 +15,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isFetching: true
             };
+
         case success(GET_POSTS):
             return {
                 ...state,
@@ -28,12 +29,10 @@ export default (state = initialState, action) => {
                 error: action.error.message
             };
 
-        case error(ADD_POST):
-        case error(DELETE_POST):
-        case error(UPDATE_POST):
-            return{
+        case SET_ERROR:
+            return {
                 ...state,
-                error: action.error.response.statusText
+                error: action.error
             };
 
         default:
@@ -41,3 +40,4 @@ export default (state = initialState, action) => {
     }
 };
 
+export default postReducer;

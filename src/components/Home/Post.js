@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import style from "../styles/post.module.css"
+import style from "../../styles/post.module.css"
 import {useDispatch} from "react-redux";
-import {updatePost} from "../store/posts/actions";
+import {updatePost} from "../../store/posts/actions";
 
 export const Post = ({post, delPost}) => {
 

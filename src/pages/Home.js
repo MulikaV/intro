@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import Home from "../components/Home";
+import Home from "../components/Home/Home";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllPosts} from "../store/posts/actions";
 

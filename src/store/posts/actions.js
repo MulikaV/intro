@@ -1,5 +1,6 @@
 export const GET_POSTS = 'GET_POSTS';
 export const ADD_POST = 'ADD_POST';
+export const SET_ERROR = 'SET_ERROR';
 export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 
@@ -14,45 +15,64 @@ export const getAllPosts = () => ({
 });
 
 export const addPost = text =>
-  async  dispatch => {
-       await dispatch({
-            type: ADD_POST,
-            request: {
-                url: `${baseUrl}/posts`,
-                data: {text},
-                method: 'post'
+    async dispatch => {
+        const data = await dispatch({
+                type: ADD_POST,
+                request: {
+                    url: `${baseUrl}/posts`,
+                    data: {text},
+                    method: 'post'
+                }
             }
+        ).catch(e => {
+            dispatch(setError(e.error.response.statusText))
         });
 
-         dispatch(getAllPosts());
-    };
+        if (data && data.response.status === 200) {
+            dispatch(getAllPosts());
+        }
+
+    }
+;
 
 export const deletePost = id =>
     async dispatch => {
-        await dispatch({
+        const data = await dispatch({
             type: DELETE_POST,
             request: {
                 url: `${baseUrl}/posts/${id}`,
                 method: 'delete'
             }
+        }).catch(e => {
+             dispatch(setError(e.error.response.statusText))
         });
 
-        dispatch(getAllPosts());
+        if (data && data.response.status === 200) {
+            dispatch(getAllPosts());
+        }
     };
 
 export const updatePost = (id, text) =>
     async dispatch => {
-        await dispatch({
+      const data =   await dispatch({
             type: UPDATE_POST,
             request: {
                 url: `${baseUrl}/posts/${id}`,
                 data: {text},
                 method: 'put'
             }
+        }).catch(e => {
+            dispatch(setError(e.error.response.statusText))
         });
 
-        dispatch(getAllPosts());
+        if (data && data.response.status === 200) {
+            dispatch(getAllPosts());
+        }
     };
 
+const setError = (error) => ({
+    type: SET_ERROR,
+    error
+});
 
 
