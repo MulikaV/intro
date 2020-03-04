@@ -1,10 +1,27 @@
-export const required = value => (value || typeof value === 'string' ? undefined : 'Required');
+export const validateEmail = (value)=>{
+    let error;
+    if (!value) {
+        error = 'Email is required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+        error = 'Invalid email address';
+    }
+    return error;
+};
 
-const maxLength = max => value =>
-    value && value.length > max ? `Must be ${max} characters or less` : undefined;
+export const validatePassword = (value)=>{
+    let error;
+    if (!value) {
+        error = 'Password is required';
+    } else if (!/^.*(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$/i.test(value)) {
+        error = 'Password must contain at least one uppercase character one lowercase character and one number ';
+    }
+    return error;
+};
 
-const minLength = min => value =>
-    value && value.length < min ? `Must be ${min} characters or more` : undefined;
-
-export const maxLength500 = maxLength(500);
-export const minLength6 = minLength(6);
+export const required =(value) =>{
+    let error;
+    if (!value) {
+        error = 'Required';
+    }
+    return error;
+};

@@ -3,7 +3,7 @@ import style from "../../styles/post.module.css"
 import {useDispatch} from "react-redux";
 import {updatePost} from "../../store/posts/actions";
 
-export const Post = ({post, delPost}) => {
+export const Post = ({post, delPost,isAuth}) => {
 
     const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
@@ -26,14 +26,17 @@ export const Post = ({post, delPost}) => {
         setEditMode(false);
     };
 
-    const updatePostText = (e) => {
+    const updatePostText = (id) => {
         setEditMode(false);
-        dispatch(updatePost(e.target.id, postText));
+        dispatch(updatePost(id, postText));
     };
 
 
     return <div className={style.post}>
+        <div className={style.cont}>
             <p><small>{post.updated_at}</small></p>
+            <p><small>{post.user.name}</small></p>
+        </div>
 
         {editMode
             ? <div className={style.cont}>
@@ -42,16 +45,16 @@ export const Post = ({post, delPost}) => {
                 </div>
 
                 <div>
-                    <a href="/#" id={post.id} className={style.delete} onClick={updatePostText}>Submit</a>
-                    <a href="/#" id={post.id} onClick={deActivateEditMode} className={style.delete}>Cancel</a>
+                    <a href="/#"  className={style.delete} onClick={()=>{updatePostText(post.id)}}>Submit</a>
+                    <a href="/#"  onClick={deActivateEditMode} className={style.delete}>Cancel</a>
                 </div>
             </div>
             : <div className={style.cont}>
                 <p className={style.text}>{post.text}</p>
-                <div>
-                    <a href="/#" id={post.id} onClick={delPost} className={style.delete}>Delete</a>
-                    <a href="/#" id={post.id} onClick={activateEditMode} className={style.delete}>Edit</a>
-                </div>
+                { isAuth && <div>
+                    <a href="/#"  onClick={()=>{delPost(post.id)}} className={style.delete}>Delete</a>
+                    <a href="/#"  onClick={activateEditMode} className={style.delete}>Edit</a>
+                </div>}
             </div>
         }
     </div>

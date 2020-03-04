@@ -1,13 +1,12 @@
 import {error, success} from 'redux-saga-requests';
-import {GET_POSTS, SET_ERROR} from "../posts/actions";
+import {GET_POSTS} from "../posts/actions";
 
 const initialState = {
     posts: [],
-    isFetching: false,
-    error: null
+    isFetching: false
 };
 
-const postReducer = (state = initialState, action) => {
+const postsReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_POSTS:
@@ -29,15 +28,9 @@ const postReducer = (state = initialState, action) => {
                 error: action.error.message
             };
 
-        case SET_ERROR:
-            return {
-                ...state,
-                error: action.error
-            };
-
         default:
             return state
     }
 };
 
-export default postReducer;
+export default postsReducer;

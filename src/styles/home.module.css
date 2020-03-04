@@ -3,3 +3,9 @@
     flex-direction: column;
     padding-bottom: 1em;
 }
+
+.attention {
+text-align: center;
+    width: 40%;
+    margin: 1em auto;
+}

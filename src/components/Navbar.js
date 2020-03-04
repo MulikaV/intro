@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../store/auth/actions";
@@ -8,9 +8,11 @@ const NavBar = () => {
     const isAuth = useSelector(store => store.auth.isAuth);
     const dispatch = useDispatch();
 
+    useEffect(()=>{},[isAuth])
+
     const logOut =()=>{
         dispatch(logout());
-    }
+    };
 
     return (
         <nav className="container  navbar-expand-lg navbar navbar-dark bg-dark justify-content-between">
@@ -26,7 +28,7 @@ const NavBar = () => {
                 </ul>
                 : <ul className="navbar-nav">
                     <li className="nav-item">
-                        <NavLink className="nav-link" to="/" onClick={logOut} >Logout</NavLink>
+                        <NavLink className="nav-link" to="#" onClick={logOut} >Logout</NavLink>
                     </li>
                 </ul>
             }

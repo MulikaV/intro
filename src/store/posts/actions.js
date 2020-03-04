@@ -1,11 +1,15 @@
+import {setError} from "../errors/actions";
+import * as axios from "axios";
+
 export const GET_POSTS = 'GET_POSTS';
 export const ADD_POST = 'ADD_POST';
-export const SET_ERROR = 'SET_ERROR';
 export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 
-/*axios.defaults.baseURL = 'http://127.0.0.1:8000/api';*/
 const baseUrl = 'http://127.0.0.1:8000/api';
+
+
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('api_token');
 
 export const getAllPosts = () => ({
     type: GET_POSTS,
@@ -14,7 +18,7 @@ export const getAllPosts = () => ({
     }
 });
 
-export const addPost = text =>
+export const addPost = (text) =>
     async dispatch => {
         const data = await dispatch({
                 type: ADD_POST,
@@ -25,13 +29,12 @@ export const addPost = text =>
                 }
             }
         ).catch(e => {
-            dispatch(setError(e.error.response.statusText))
+            dispatch(setError(e.error.response.data.message))
         });
 
-        if (data && data.response.status === 200) {
+        if (data && data.response.status === 201) {
             dispatch(getAllPosts());
         }
-
     }
 ;
 
@@ -44,7 +47,7 @@ export const deletePost = id =>
                 method: 'delete'
             }
         }).catch(e => {
-             dispatch(setError(e.error.response.statusText))
+             dispatch(setError(e.error.response.data.message))
         });
 
         if (data && data.response.status === 200) {
@@ -62,17 +65,14 @@ export const updatePost = (id, text) =>
                 method: 'put'
             }
         }).catch(e => {
-            dispatch(setError(e.error.response.statusText))
+          dispatch(setError(e.error.response.data.message))
         });
 
-        if (data && data.response.status === 200) {
+        if (data && data.response.status === 201) {
             dispatch(getAllPosts());
         }
     };
 
-const setError = (error) => ({
-    type: SET_ERROR,
-    error
-});
+
 
 

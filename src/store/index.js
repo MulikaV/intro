@@ -1,19 +1,21 @@
-import {reducer as formReducer} from 'redux-form'
 import createSagaMiddleware from 'redux-saga';
-import postReducer from "./posts/reducers";
+import postsReducer from "./posts/reducers";
 import authReducer from "./auth/reducers";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import rootSaga from "./sagas/saga";
 import thunkMiddleware from 'redux-thunk'
 import {requestsPromiseMiddleware} from "redux-saga-requests";
+import usersReducer from "./users/reducers";
+import errorsReducer from "./errors/reducers";
 
 export const configureStore = () => {
     const sagaMiddleware = createSagaMiddleware();
     const store = createStore(
         combineReducers({
-            posts: postReducer,
+            posts: postsReducer,
             auth:authReducer,
-            form: formReducer
+            errors:errorsReducer,
+            users: usersReducer
         }),
         applyMiddleware(requestsPromiseMiddleware({auto:true}),thunkMiddleware,sagaMiddleware),
     );

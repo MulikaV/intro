@@ -1,32 +1,41 @@
 import React from "react";
-
-import {Field, reset, reduxForm} from "redux-form";
-import {maxLength500, required} from "../../helpers/validators";
+import {required} from "../../helpers/validators";
 import {Textarea} from "../FormControls";
+import {Field, Form, Formik} from "formik";
+import {useDispatch} from "react-redux";
+import {addPost} from "../../store/posts/actions";
 
-let InputForm = ({handleSubmit}) => {
+let InputForm = () => {
+    const dispatch = useDispatch();
+
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <Field
-                    component={Textarea}
-                    element={"textarea"}
-                    validate={[required, maxLength500]}
-                    name="message"
-                    placeholder="Start messaging here"
-                />
-            </div>
-            <div className="text-right">
-                <button type="submit"    className="btn btn-primary"> Send</button>
-            </div>
-        </form>
+        <Formik
+            initialValues={{
+                text:""
+            }}
+            onSubmit={(data,{setSubmitting})=>{
+                setSubmitting(true);
+                dispatch(addPost(data.text));
+                setSubmitting(false);
+            }}>
+            {({errors,touched,isSubmitting})=>(
+                <Form >
+                    <Field
+                        name="text"
+                        errors={errors}
+                        touched={touched}
+                        validate={required}
+                        as={Textarea}
+                    />
+
+                    <div className="text-right mt-3">
+                        <button disabled={isSubmitting} type="submit" className="btn btn-primary"> Login</button>
+                    </div>
+                </Form>
+            )}
+        </Formik>
     )
 };
 
-export default InputForm = reduxForm({
-    form: 'inputForm',
-    onSubmitSuccess: (result, dispatch) => {
-        dispatch(reset('inputForm'));
-    }
-})(InputForm);
+export default InputForm ;
 

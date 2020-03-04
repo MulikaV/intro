@@ -2,8 +2,7 @@ import {success} from 'redux-saga-requests';
 import {LOGIN, LOGOUT} from "./actions";
 
 const initialState = {
-    isAuth: false,
-    error: null
+    isAuth: false
 };
 
 const authReducer = (state = initialState, action) => {
