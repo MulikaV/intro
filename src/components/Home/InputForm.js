@@ -11,17 +11,18 @@ let InputForm = () => {
     return (
         <Formik
             initialValues={{
-                text:""
+                body:""
             }}
-            onSubmit={(data,{setSubmitting})=>{
+            onSubmit={(data,{setSubmitting,resetForm})=>{
                 setSubmitting(true);
-                dispatch(addPost(data.text));
+                dispatch(addPost(data.body));
+                resetForm({});
                 setSubmitting(false);
             }}>
             {({errors,touched,isSubmitting})=>(
                 <Form >
                     <Field
-                        name="text"
+                        name="body"
                         errors={errors}
                         touched={touched}
                         validate={required}
@@ -29,7 +30,7 @@ let InputForm = () => {
                     />
 
                     <div className="text-right mt-3">
-                        <button disabled={isSubmitting} type="submit" className="btn btn-primary"> Login</button>
+                        <button disabled={isSubmitting} type="submit" className="btn btn-primary"> Send</button>
                     </div>
                 </Form>
             )}

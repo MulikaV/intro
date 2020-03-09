@@ -2,7 +2,7 @@ import {DELETE_ERROR, SET_ERROR} from "./actions";
 
 
 const initialState = {
-    error: null
+    error: false
 };
 
 const errorsReducer = (state = initialState, action) => {

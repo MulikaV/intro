@@ -5,8 +5,8 @@ import {applyMiddleware, combineReducers, createStore} from "redux";
 import rootSaga from "./sagas/saga";
 import thunkMiddleware from 'redux-thunk'
 import {requestsPromiseMiddleware} from "redux-saga-requests";
-import usersReducer from "./users/reducers";
 import errorsReducer from "./errors/reducers";
+import logger from 'redux-logger'
 
 export const configureStore = () => {
     const sagaMiddleware = createSagaMiddleware();
@@ -14,10 +14,9 @@ export const configureStore = () => {
         combineReducers({
             posts: postsReducer,
             auth:authReducer,
-            errors:errorsReducer,
-            users: usersReducer
+            errors:errorsReducer
         }),
-        applyMiddleware(requestsPromiseMiddleware({auto:true}),thunkMiddleware,sagaMiddleware),
+        applyMiddleware(requestsPromiseMiddleware({auto:true}),thunkMiddleware,sagaMiddleware,logger),
     );
     sagaMiddleware.run(rootSaga);
     return store;

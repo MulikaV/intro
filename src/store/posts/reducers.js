@@ -1,31 +1,31 @@
-import {error, success} from 'redux-saga-requests';
+import {success} from 'redux-saga-requests';
 import {GET_POSTS} from "../posts/actions";
+import {DELETE_ALL_POST} from "./actions";
 
 const initialState = {
     posts: [],
-    isFetching: false
+    total:0,
+    currentPage: 0,
+
+
 };
 
 const postsReducer = (state = initialState, action) => {
     switch (action.type) {
 
-        case GET_POSTS:
-            return {
-                ...state,
-                isFetching: true
-            };
 
         case success(GET_POSTS):
             return {
                 ...state,
-                posts: action.data,
-                isFetching: false
+                posts:[ ...state.posts, ...action.data.data],
+                total:action.data.total,
+                currentPage: action.data.current_page
             };
 
-        case error(GET_POSTS):
-            return {
+        case DELETE_ALL_POST:
+            return{
                 ...state,
-                error: action.error.message
+                posts:[]
             };
 
         default:

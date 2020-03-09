@@ -7,11 +7,11 @@ export const Post = ({post, delPost,isAuth}) => {
 
     const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
-    const [postText, setPostText] = useState(post.text);
+    const [postText, setPostText] = useState(post.body);
 
     useEffect(() => {
-        setPostText(post.text)
-    }, [post.text]);
+        setPostText(post.body)
+    }, [post.body]);
 
 
     const onPostTextChange = (e) => {
@@ -35,7 +35,7 @@ export const Post = ({post, delPost,isAuth}) => {
     return <div className={style.post}>
         <div className={style.cont}>
             <p><small>{post.updated_at}</small></p>
-            <p><small>{post.user.name}</small></p>
+            <p><small>{post.user.username}</small></p>
         </div>
 
         {editMode
@@ -50,7 +50,7 @@ export const Post = ({post, delPost,isAuth}) => {
                 </div>
             </div>
             : <div className={style.cont}>
-                <p className={style.text}>{post.text}</p>
+                <p className={style.text}>{post.body}</p>
                 { isAuth && <div>
                     <a href="/#"  onClick={()=>{delPost(post.id)}} className={style.delete}>Delete</a>
                     <a href="/#"  onClick={activateEditMode} className={style.delete}>Edit</a>
