@@ -7,57 +7,57 @@ export const LOGOUT = 'LOGOUT';
 
 const baseUrl = 'http://127.0.0.1:8000/api';
 
-export const register = (username, email, password,password_confirmation,history) => async dispatch => {
+export const register = (username, email, password, password_confirmation, history) => async dispatch => {
 
- const data = await  dispatch({
+    const data = await dispatch({
         type: REGISTER,
         request: {
             url: `${baseUrl}/register`,
-            data: {username, email, password,password_confirmation},
+            data: {username, email, password, password_confirmation},
             method: 'post',
         }
     })
         .catch(e => {
             dispatch(setError(e.error.response.data.message))
         });
-      if(data){
-      }
-
-
+    if (data) {
+        localStorage.setItem('api_token', data.data.token);
+        history.push('/');
+    }
 };
 
-export const login = (email, password,remember_me,history) => async dispatch => {
+export const login = (email, password, history) => async dispatch => {
 
-   const data = await dispatch({
+    const data = await dispatch({
         type: LOGIN,
         request: {
             url: `${baseUrl}/login`,
-            data: {email, password,remember_me},
+            data: {email, password},
             method: 'post'
         }
     }).catch(e => {
-       dispatch(setError(e.error.response.data.message))
-   });
+        dispatch(setError(e.error.response.data.message))
+    });
 
     if (data) {
-    localStorage.setItem('api_token',data.data.token);
-    history.push('/');
+        localStorage.setItem('api_token', data.data.token);
+        history.push('/');
     }
 
 };
-export const logout = () => async dispatch=>{
-        const data = await dispatch({
-            type: LOGOUT,
-            request: {
-                url: `${baseUrl}/logout`,
-                method: 'post'
-            }
-        }).catch(e => {
-            dispatch(setError(e.error.response.data.message))
-        });
+export const logout = () => async dispatch => {
+    const data = await dispatch({
+        type: LOGOUT,
+        request: {
+            url: `${baseUrl}/logout`,
+            method: 'post'
+        }
+    }).catch(e => {
+        dispatch(setError(e.error.response.data.message))
+    });
 
     if (data) {
-        localStorage.setItem('api_token',data.data.token);
+        localStorage.setItem('api_token', data.data.token);
     }
 };
 

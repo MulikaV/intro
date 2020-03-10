@@ -14,10 +14,10 @@ const HomeContainer = () => {
 
 
     useEffect(() => {
-                dispatch(getAllPosts(1));
-                return ()=>{
-                    dispatch(deleteAllPosts());
-                }
+        dispatch(getAllPosts(1));
+        return () => {
+            dispatch(deleteAllPosts());
+        }
     }, [dispatch]);
 
     return <div className="container bg-light pt-5">
@@ -27,7 +27,7 @@ const HomeContainer = () => {
             isAuth={isAuth}
             currentPage={currentPage}
             total={total}
-            />
+        />
     </div>
 
 };

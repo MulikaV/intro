@@ -1,9 +1,10 @@
 import React from "react";
-import {required} from "../../helpers/validators";
 import {Textarea} from "../FormControls";
 import {Field, Form, Formik} from "formik";
 import {useDispatch} from "react-redux";
 import {addPost} from "../../store/posts/actions";
+import * as yup from "yup";
+
 
 let InputForm = () => {
     const dispatch = useDispatch();
@@ -11,21 +12,26 @@ let InputForm = () => {
     return (
         <Formik
             initialValues={{
-                body:""
+                body: ""
             }}
-            onSubmit={(data,{setSubmitting,resetForm})=>{
+            validationSchema={yup.object({
+                body: yup
+                    .string()
+                    .required('Please enter your message'),
+
+            })}
+            onSubmit={(data, {setSubmitting, resetForm}) => {
                 setSubmitting(true);
                 dispatch(addPost(data.body));
                 resetForm({});
                 setSubmitting(false);
             }}>
-            {({errors,touched,isSubmitting})=>(
-                <Form >
+            {({errors, touched, isSubmitting}) => (
+                <Form>
                     <Field
                         name="body"
                         errors={errors}
                         touched={touched}
-                        validate={required}
                         as={Textarea}
                     />
 
@@ -38,5 +44,5 @@ let InputForm = () => {
     )
 };
 
-export default InputForm ;
+export default InputForm;
 

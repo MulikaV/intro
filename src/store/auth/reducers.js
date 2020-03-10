@@ -1,5 +1,5 @@
 import {success} from 'redux-saga-requests';
-import {LOGIN, LOGOUT} from "./actions";
+import {LOGIN, LOGOUT, REGISTER} from "./actions";
 
 const initialState = {
     isAuth: false
@@ -9,6 +9,7 @@ const authReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case success(LOGIN):
+        case success(REGISTER):
             return {
                 ...state,
                 isAuth: true

@@ -28,7 +28,8 @@
     "redux-saga-requests": "^0.26.1",
     "redux-saga-requests-axios": "^0.7.7",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "yup": "^0.28.3"
   },
   "scripts": {
     "start": "react-scripts start",

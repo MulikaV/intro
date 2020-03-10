@@ -4,20 +4,19 @@
     padding: 5px;
     margin-top: 1em;
 }
-.cont{
+.content{
     display: flex;
     justify-content: space-between;
     padding: 0 1em 0 1em;
-
 }
 
-.cont .delete {
+.content .delete {
     margin-left: 1em;
     text-decoration: none;
 }
-.cont .delete:hover {
+.content .delete:hover {
     cursor: pointer
 }
-.cont .input {
+.content .input {
     margin-bottom: 1em;
 }
