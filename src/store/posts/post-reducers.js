@@ -1,6 +1,6 @@
 import {success} from 'redux-saga-requests';
-import {GET_POSTS} from "../posts/actions";
-import {DELETE_ALL_POST} from "./actions";
+import {GET_POSTS} from "./post-actions";
+import {DELETE_ALL_POST} from "./post-actions";
 
 const initialState = {
     posts: [],

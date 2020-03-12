@@ -1,12 +1,11 @@
 import React from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {login} from "../../store/auth/actions";
-import Error from "../Error";
+import {useDispatch} from "react-redux";
+import {login} from "../../store/auth/auth-actions";
 import {useHistory} from "react-router";
 import {Field, Form, Formik} from "formik";
 import {MyField} from "../FormControls";
 import * as yup from "yup";
-
+import {useAlert} from "react-alert";
 
 const schema = yup.object({
     email: yup
@@ -17,24 +16,29 @@ const schema = yup.object({
         .required('Please Enter your password'),
 });
 
+const initialValues = {
+    email: "",
+    password: ""
+};
+
 const LoginForm = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const error = useSelector(store => store.errors.error);
-
+    const alert = useAlert();
 
     return <div className="container bg-light pt-5 pb-5">
         <Formik
-            initialValues={{
-                email: "",
-                password: ""
-            }}
+            initialValues={initialValues}
             validationSchema={schema}
-            onSubmit={(data, {setSubmitting}) => {
-                setSubmitting(true);
-                dispatch(login(data.email, data.password, history));
-                setSubmitting(false);
+            onSubmit={(data) => {
+                dispatch(login(data))
+                    .then(data => {
+                        localStorage.setItem('api_token', data.data.token);
+                        history.push('/')
+                    })
+                    .catch(e =>
+                        alert.error(e.error.response.data.message));
             }}>
             {({errors, touched}) => (
                 <Form>
@@ -58,9 +62,6 @@ const LoginForm = () => {
                 </Form>
             )}
         </Formik>
-        {error && <Error error={error}/>}
     </div>
-
 };
-
 export default LoginForm;

@@ -1,30 +1,36 @@
 import React from "react";
-import {Textarea} from "../FormControls";
+import {Textarea} from "./FormControls";
 import {Field, Form, Formik} from "formik";
 import {useDispatch} from "react-redux";
-import {addPost} from "../../store/posts/actions";
+import {addPost, deleteAndGetAllPosts} from "../store/posts/post-actions";
 import * as yup from "yup";
+import {useAlert} from "react-alert";
 
 
-let InputForm = () => {
+const schema = yup.object({
+    body: yup
+        .string()
+        .required('Please enter your message')
+});
+
+const initialValues = {
+    body: ""
+};
+
+const InputForm = () => {
     const dispatch = useDispatch();
+    const alert = useAlert();
 
     return (
         <Formik
-            initialValues={{
-                body: ""
-            }}
-            validationSchema={yup.object({
-                body: yup
-                    .string()
-                    .required('Please enter your message'),
-
-            })}
-            onSubmit={(data, {setSubmitting, resetForm}) => {
-                setSubmitting(true);
-                dispatch(addPost(data.body));
+            initialValues={initialValues}
+            validationSchema={schema}
+            onSubmit={(data, {resetForm}) => {
+                dispatch(addPost(data.body))
+                    .then(dispatch(deleteAndGetAllPosts()))
+                    .catch(e =>
+                        alert.error(e.error.response.data.message));
                 resetForm({});
-                setSubmitting(false);
             }}>
             {({errors, touched, isSubmitting}) => (
                 <Form>

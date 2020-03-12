@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from "react";
-import style from "../styles/post.module.css"
+import style from "../../styles/post.module.css"
 import {useDispatch} from "react-redux";
-import {deletePost, updatePost} from "../store/posts/actions";
-import PostEditMode from "../components/Home/Posts/PostEditMode";
-import Post from "../components/Home/Posts/Post";
+import {deleteAndGetAllPosts, deletePost, updatePost} from "../../store/posts/post-actions";
+import PostEditMode from "./PostEditMode";
+import Post from "./Post";
+import {useAlert} from "react-alert";
 
-export const PostContainer = ({post, isAuth}) => {
+export const Posts = ({post, isAuth}) => {
 
     const dispatch = useDispatch();
+    const alert = useAlert();
     const [editMode, setEditMode] = useState(false);
     const [postText, setPostText] = useState(post.body);
 
@@ -17,7 +19,19 @@ export const PostContainer = ({post, isAuth}) => {
 
     const delPost = (id) => {
         dispatch(deletePost(id))
+            .then(data => {dispatch(deleteAndGetAllPosts())})
+            .catch(e =>
+                alert.error(e.error.response.data.message));
     };
+
+    const updatePostText = (id) => {
+        setEditMode(false);
+        dispatch(updatePost(id, postText))
+            .then(() => {dispatch(deleteAndGetAllPosts())})
+            .catch(e =>
+                alert.error(e.error.response.data.message));
+    };
+
     const onPostTextChange = (e) => {
         setPostText(e.target.value);
     };
@@ -28,11 +42,6 @@ export const PostContainer = ({post, isAuth}) => {
 
     const deActivateEditMode = () => {
         setEditMode(false);
-    };
-
-    const updatePostText = (id) => {
-        setEditMode(false);
-        dispatch(updatePost(id, postText));
     };
 
 

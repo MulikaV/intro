@@ -1,5 +1,5 @@
 import {success} from 'redux-saga-requests';
-import {LOGIN, LOGOUT, REGISTER} from "./actions";
+import {LOGIN, LOGOUT, REGISTER} from "./auth-actions";
 
 const initialState = {
     isAuth: false

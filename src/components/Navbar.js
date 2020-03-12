@@ -1,7 +1,8 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {logout} from "../store/auth/actions";
+import {logout} from "../store/auth/auth-actions";
+import {NavBarContainer, NavBarLink, NavBarUl} from "./StyledComponent/NavBarContainer";
 
 const NavBar = () => {
 
@@ -13,25 +14,25 @@ const NavBar = () => {
     };
 
     return (
-        <nav className="container  navbar-expand-lg navbar navbar-dark bg-dark justify-content-between">
-            <NavLink className="navbar-brand" activeClassName="active" to="/">Home</NavLink>
+        <NavBarContainer >
+            <NavBarLink   href="/">Home</NavBarLink>
             {!isAuth
-                ? <ul className="navbar-nav">
-                    <li className="nav-item ">
-                        <NavLink className="nav-link" activeClassName="active" to="/login" exact>Login</NavLink>
+                ? <NavBarUl >
+                    <li >
+                        <NavBarLink activeClassName="active" href="/login" exact>Login</NavBarLink>
                     </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" activeClassName="active" to="/register">Sign Up</NavLink>
+                    <li >
+                        <NavBarLink  activeClassName="active" href="/register">Sign Up</NavBarLink>
                     </li>
-                </ul>
-                : <ul className="navbar-nav">
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="#" onClick={logOut}>Logout</NavLink>
+                </NavBarUl>
+                : <NavBarUl >
+                    <li >
+                        <NavBarLink  href='/#' onClick={logOut}>Logout</NavBarLink>
                     </li>
-                </ul>
+                </NavBarUl>
             }
 
-        </nav>
+        </NavBarContainer>
     )
 };
 

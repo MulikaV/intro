@@ -1,20 +1,23 @@
 import React from 'react';
 import '../styles/App.css';
-import HomeContainer from "../pages/HomeContainer";
-import {BrowserRouter, Route} from "react-router-dom";
-import NavBar from "./Navbar";
-import RegisterForm from "./Auth/RegisterForm";
-import LoginForm from "./Auth/LoginForm";
+import Routers from "./Routes";
+import {transitions, positions, Provider as AlertProvider} from 'react-alert'
+import AlertTemplate from "react-alert-template-basic";
+import Template from "./template";
 
 const App = () => {
-    return (
-        <BrowserRouter>
-            <NavBar/>
-            <Route exact path="/" component={HomeContainer}/>
-            <Route path="/login" component={LoginForm}/>
-            <Route path="/register" component={RegisterForm}/>
-        </BrowserRouter>
+    const options = {
+        position: positions.TOP_CENTER,
+        timeout: 3000,
+        offset: '300px',
 
+        transition: transitions.SCALE
+    };
+
+    return (
+        <AlertProvider template={Template} {...options} >
+            <Routers/>
+        </AlertProvider>
     );
 };
 
